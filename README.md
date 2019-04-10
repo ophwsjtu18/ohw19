@@ -4,7 +4,11 @@
 <<<<<<< HEAD
 pip install pyserial
 
+<<<<<<< HEAD
 hello, I'm CNF
+=======
+hello i am pzh
+>>>>>>> 43bfdef8ec6dfd4b2d8cf26a3eea204859d9be30
 =======
 pip install pyserial 
 Hello I'm Riccardo Yeung and my file storage is ://MingjieYang
