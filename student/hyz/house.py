@@ -12,6 +12,8 @@ material=[1,2,3,4,133,5/1,5/2,5/3,7,14,15,16,121,17/1,133,17/3,21,22,41,42,45,48
 
 tmp=0
 
+position=[]
+
 def house(a, b ,c , L, W, H, M):
 	for j in range(H):
 		for i in range(W):
@@ -46,5 +48,6 @@ for j in range(3):
 		for k in range(3):
 			house(a+14*i, b+14*j, c+14*k, 10, 10, 10, material[tmp])
 			tmp=tmp+1   
-			
+			position.append([a+14*i, b+14*j, c+14*k])
+
 #origin : (189, 53, -160)
