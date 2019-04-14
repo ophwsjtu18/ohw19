@@ -8,6 +8,10 @@ a=pos.x
 b=pos.y
 c=pos.z
 
+material=[1,2,3,4,133,5/1,5/2,5/3,7,14,15,16,121,17/1,133,17/3,21,22,41,42,45,48,49,56,57,73,88]
+
+tmp=0
+
 def house(a, b ,c , L, W, H, M):
 	for j in range(H):
 		for i in range(W):
@@ -36,32 +40,11 @@ def house(a, b ,c , L, W, H, M):
 			mc.setBlock(a+2+i, b+H-1, c+2+k, M)
     
 print([a,b,c])
-house(a, b, c, 10, 10, 10, 1)
-house(a+14, b, c, 10, 10, 10, 2)
-house(a+28, b, c, 10, 10, 10, 3)
-house(a, b, c+14, 10, 10, 10, 4)
-house(a+14, b, c+14, 10, 10, 10, 133)
-house(a+28, b, c+14, 10, 10, 10, 5/1)
-house(a, b, c+28, 10, 10, 10, 5/2)
-house(a+14, b, c+28, 10, 10, 10, 5/3)
-house(a+28, b, c+28, 10, 10, 10, 7)
-house(a, b+14, c, 10, 10, 10, 14)
-house(a+14, b+14, c, 10, 10, 10, 15)
-house(a+28, b+14, c, 10, 10, 10, 16)
-house(a, b+14, c+14, 10, 10, 10, 121)
-house(a+14, b+14, c+14, 10, 10, 10, 17/1)
-house(a+28, b+14, c+14, 10, 10, 10, 133)
-house(a, b+14, c+28, 10, 10, 10, 17/3)
-house(a+14, b+14, c+28, 10, 10, 10, 21)
-house(a+28, b+14, c+28, 10, 10, 10, 22)
-house(a, b+28, c, 10, 10, 10, 41)
-house(a+14, b+28, c, 10, 10, 10, 42)
-house(a+28, b+28, c, 10, 10, 10, 45)
-house(a, b+28, c+14, 10, 10, 10, 48)
-house(a+14, b+28, c+14, 10, 10, 10, 49)
-house(a+28, b+28, c+14, 10, 10, 10, 56)
-house(a, b+28, c+28, 10, 10, 10, 57)
-house(a+14, b+28, c+28, 10, 10, 10, 73)
-house(a+28, b+28, c+28, 10, 10, 10, 88)
-            
+
+for j in range(3):
+	for i in range(3):
+		for k in range(3):
+			house(a+14*i, b+14*j, c+14*k, 10, 10, 10, material[tmp])
+			tmp=tmp+1   
+			
 #origin : (189, 53, -160)
