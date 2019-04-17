@@ -66,6 +66,7 @@ for j in range(3):
 array=["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27"]
 
 while True:
+    time.sleep(2)
     pos=mc.player.getTilePos()
     for Pos in position:		
         if pos.x>Pos[0] and pos.x<Pos[0]+10 and pos.y>Pos[1] and pos.y<Pos[1]+10 and pos.z>Pos[2]+2 and pos.z<Pos[2]+10:
