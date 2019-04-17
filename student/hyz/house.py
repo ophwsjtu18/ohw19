@@ -46,7 +46,7 @@ def house(a, b ,c , L, W, H, M):
                 mc.setBlock(a+1, b+j, c+k+2, M)
                 mc.setBlock(a+W, b+j, c+k+2, M)
 
-    for i in range(W-2):                       			#底
+    for i in range(W-2):                       			        #底
         for k in range(L-2):
             mc.setBlock(a+2+i, b, c+2+k, M)
 
@@ -74,6 +74,3 @@ while True:
             print(str(TMP)+" already sent")
         TMP=TMP+1
     TMP=1
-
-
-#origin : (189, 53, -160)
