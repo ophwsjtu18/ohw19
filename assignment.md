@@ -29,5 +29,5 @@ timeout = 6000
 pip install opencv-python  
 4.安装jupter notebook  
 pip install jupyter  
-5.设计并3D打印一个有你名字的立方体5mmx5mmx5mm
+5.设计并3D打印一个有你名字的立方体10mmx10mmx10mm
 
