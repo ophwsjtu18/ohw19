@@ -84,7 +84,7 @@ print(pos.x,pos.y,pos.z)
 x1=pos.x
 y1=pos.y
 z1=pos.z
-global pos_storage[0]
+pos_storage=list()
 for i in range(3):
     for j in range(3):
         for k in range(3):
