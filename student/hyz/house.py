@@ -1,6 +1,19 @@
 import mcpi.minecraft as minecraft
 import mcpi.block as block
+import serial
+import serial.tools.list_ports
+import time
 
+ports = list(serial.tools.list_ports.comports())
+print (ports)
+
+for p in ports:
+	print (p[1])
+        if "SERIAL" in p[1] or "UART" in p[1]:
+		ser=serial.Serial(port=p[0])
+        else :
+		print ("No Arduino Device was found connected to the computer")
+		
 mc=minecraft.Minecraft.create()
 pos=mc.player.getTilePos()
 
@@ -11,7 +24,7 @@ c=pos.z
 material=[1,2,3,4,133,5/1,5/2,5/3,7,14,15,16,121,17/1,133,17/3,21,22,41,42,45,48,49,56,57,73,88]
 
 tmp=0
-
+TMP=1
 position=[]
 
 def house(a, b ,c , L, W, H, M):
@@ -49,5 +62,15 @@ for j in range(3):
 			house(a+14*i, b+14*j, c+14*k, 10, 10, 10, material[tmp])
 			tmp=tmp+1   
 			position.append([a+14*i, b+14*j, c+14*k])
+			
+array=["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27"]
+while True:
+	pos=mc.player.getTilePos()
+	for Pos in position:		
+		if pos.x>Pos[0] and pos.x<Pos[0]+10 and pos.y>Pos[1] and pos.y<Pos[1]+10 and pos.z>Pos[2]+2 and pos.z<Pos[2]+10:
+			ser.write(array[TMP-1].encode())
+			print(str(tmp)+" already sent")
+		TMP=TMP+1
+	TMP=1
 
 #origin : (189, 53, -160)
