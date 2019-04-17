@@ -54,7 +54,7 @@ def welcome(baseList):
     for base in baseList:
         if base[0]<pos.x<base[1] and base[2]<pos.y<base[3] and base[4]<pos.z<base[5]:
             print("Welcome home!")
-            action = str(random.randint(1,9)) #随机选歌
+            action = str(random.randint(1,5)) #随机选歌
             ser.write(action.encode())
             time.sleep(5)
             action = '10'

@@ -71,7 +71,7 @@ def welcome(pos_storage):
 
 #InitPort      Main Part
 BlockList = [1,4,5,14,15,16,17,20,35,41,42,45,87]
-Material = random.randint(0,12)
+
 ports = list(serial.tools.list_ports.comports())
 for p in ports:
     #print (p[1])
@@ -84,10 +84,11 @@ print(pos.x,pos.y,pos.z)
 x1=pos.x
 y1=pos.y
 z1=pos.z
-pos_storage[]
+global pos_storage[0]
 for i in range(3):
     for j in range(3):
         for k in range(3):
+            Material = BlockList[random.randint(0,12)]
             tt=housebuild(random.randint(4,11),x1,y1,z1,Material)
             pos_storage.append([x1+3,x1+tt,y1,y1+tt,z1,z1+tt])  #Stire the position and size of House
             x1=x1+14
