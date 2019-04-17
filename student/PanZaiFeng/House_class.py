@@ -28,12 +28,12 @@ def clear(x0,y0,z0,length,height,width):
 
 #房子类
 class House:
-    def __init__(self, x0,y0,z0,length,height,width,material,action):
+    def __init__(self, x0,y0,z0,length,height,width,material,song_num):
         self.x, self.y, self.z = x0, y0, z0
         self.length, self.height, self.width = length, height, width
         self.material = material
         self.base = [x0,x0+length,y0,y0+height,z0,z0+width]
-        self.action = str(action)
+        self.song = str(song_num)
 
         #先生成立方体
         for i in range(0,length):
@@ -45,42 +45,41 @@ class House:
         clear(x0+1,y0+1,z0+1,length-2,height-2,width-2)
 
         #造门
-        for i in range(int(length/2)-2,int(length/2)+2):
-            for j in range(0,4):
-                mc.setBlock(x0+i, y0+1+j, z0, block.AIR.id)
+        clear(x0+length//2-2,y0,z0,4,4,1)
 
         #造窗
-        for i in range(int(height/2)-1,int(height/2)+2):
-            for j in range(int(width/2)-1,int(width/2)+1):
-                mc.setBlock(x0, y0+i, z0+j, block.AIR.id)
+        clear(x0,y0+height//2-1,width//2,1,3,2)
+
+    def changeSong(self, song_num):
+        self.song = str(song_num)
+
+    def changeMaterial(self, material):
+        self.material = material
+        self.rebuild()
 
     def rebuild(self):
         #先生成立方体
-        for i in range(0,length):
-            for j in range(0,height):
-                for k in range(0,width):
-                    mc.setBlock(x0+i, y0+j, z0+k, material)
+        for i in range(0,self.length):
+            for j in range(0,self.height):
+                for k in range(0,self.width):
+                    mc.setBlock(self.x+i, self.y+j, self.z+k, self.material)
 
         #再挖空
-        clear(x0+1,y0+1,z0+1,length-2,height-2,width-2)
+        clear(self.x+1,self.y+1,self.z+1,self.length-2,self.height-2,self.width-2)
 
         #造门
-        for i in range(int(length/2)-2,int(length/2)+2):
-            for j in range(0,4):
-                mc.setBlock(x0+i, y0+1+j, z0, block.AIR.id)
+        clear(self.x+self.length//2-2,self.y,self.z,4,4,1)
 
         #造窗
-        for i in range(int(height/2)-1,int(height/2)+2):
-            for j in range(int(width/2)-1,int(width/2)+1):
-                mc.setBlock(x0, y0+i, z0+j, block.AIR.id)
+        clear(self.x,self.y+self.height//2-1,self.width//2,1,3,2)
 
-    def isInside(self, mc_pos):
-        if self.base[0]<mc_pos.x<self.base[1] and self.base[2]<mc_pos.y<self.base[3] and self.base[4]<mc_pos.z<self.base[5]:
+    def ifPlayerIn(self, mc_pos):
+        if self.base[0]<mc_pos.x<self.base[1] and self.base[2]<mc_pos.y<self.base[3] \
+           and self.base[4]<mc_pos.z<self.base[5]:
             print("Welcome home!")
-            ser.write(self.action.encode())
+            ser.write(self.song.encode())
             time.sleep(5)
-            action = '10'
-            ser.write(self.action.encode()) #关闭
+            ser.write('10'.encode()) #关闭
 
 
 x,y,z=150,20,150 #找了比较开阔的位置
@@ -109,7 +108,7 @@ while(True):
     pos = mc.player.getTilePos()
     print("The position now is [",pos.x,pos.y,pos.z,"]")
     for house in houses:
-        house.isInside(pos)
+        house.ifPlayerIn(pos)
     time.sleep(10)
         
         
