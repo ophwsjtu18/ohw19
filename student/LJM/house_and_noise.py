@@ -47,15 +47,15 @@ def in_house(x,y,z,L,W,H,num,pos):
     return 0    
 
 def make_noise(x,y,z,L,W,H,num,pos):
-##    ser = serial.Serial(port = '/dev/tty.wchusbserial14630')
+    ser = serial.Serial(port = '/dev/cu.wchusbserial14430')
     while(1):
         pos=mc.player.getTilePos()
         mc.postToChat("Now: x:"+str(pos.x)+"y:"+str(pos.y)+"z:"+str(pos.z))
         mc.postToChat("Aim: x:"+str(x)+"y:"+str(y)+"z:"+str(z))
-        time.sleep(2)
+        time.sleep(1)
         if in_house(x,y,z,L,W,H,num,pos)!=0:
             mc.postToChat("in")
-##            ser.write(str(in_house(x,y,z,L,W,num,pos)).encode())
+            ser.write(str(in_house(x,y,z,L,W,H,num,pos)).encode())
             time.sleep(1)
         
 make_noise(x,y,z,L,W,H,num,pos)
