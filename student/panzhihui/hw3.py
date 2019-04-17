@@ -1,0 +1,125 @@
+import mcpi.minecraft as minecraft
+import mcpi.block as block
+import serial
+import serial.tools.list_ports
+import random
+import time
+print ('hello')
+ports = list(serial.tools.list_ports.comports())
+print (ports)
+
+for p in ports:
+    print (p[1])
+    if "SERIAL" in p[1]:
+	    ser=serial.Serial(port=p[0])
+    else :
+	    print ("No Arduino Device was found connected to the computer")
+
+#ser=serial.Serial(port='COM4')
+#ser=serial.Serial(port='/dev/ttymodem542')
+
+mc=minecraft.Minecraft.create()
+pos=mc.player.getTilePos()
+
+
+def house(x,y,z,L,M):
+   
+    ini_x=x
+    ini_y=y
+    ini_z=z
+    sec_x=x+1
+    sec_y=y+1
+    sec_z=z+1
+    posx2=x
+    posy2=y
+    posz2=z
+    posx=x
+    posy=y
+    posz=z
+    poswinx=x
+    poswiny=y
+    poswinz=z
+#bulid house
+    for x in range(L):
+        posx=ini_x+x
+        mc.setBlock(posx,posy,posz,M)
+        for y in range(L):
+            posy=ini_y+y
+            mc.setBlock(posx,posy,posz,M)
+            for z in range(L):
+                posz=ini_z+z
+                mc.setBlock(posx,posy,posz,M)
+#dig inside
+    for x in range(L-2):
+        sec_x=ini_x+1+x
+        mc.setBlock(sec_x,sec_y,sec_z,0)
+        for y in range(L-2):
+            sec_y=ini_y+1+y
+            mc.setBlock(sec_x,sec_y,sec_z,0)
+            for z in range(L-2):
+                sec_z=ini_z+1+z
+                mc.setBlock(sec_x,sec_y,sec_z,0)
+#dig door
+    for x in range(2):
+        posy2=ini_y+1
+        posx2=ini_x+L/2+x
+        mc.setBlock(posx2,posy2,posz2,0)
+        for y in range(3):
+            posy2=ini_y+1+y
+            mc.setBlock(posx2,posy2,posz2,0)
+#dig window
+    for x in range(2):
+        poswiny=ini_y+2*L/3
+        poswinx=ini_x+L/4+x
+        mc.setBlock(poswinx,poswiny,poswinz,0)
+        for y in range(2):
+            poswiny=ini_y+2*L/3+y
+            mc.setBlock(poswinx,poswiny,poswinz,0)
+
+houselist=[]
+
+def lotshouse(x,y,z):
+    ini_x=x
+    ini_y=y
+    ini_z=z
+    posx=x
+    posy=y
+    posz=z
+    m1=1
+    m2=24
+    m3=97
+    for x in range(3):
+        houselist.append([posx,posy,posz])
+        house(posx,posy,posz,10,m1)
+        posx=ini_x+25*x
+        m1=m1+1
+        
+        for y in range(3):
+            houselist.append([posx,posy,posz])
+            house(posx,posy,posz,12,m2)
+            posy=ini_y+25*y
+            m2=m2+1
+            
+            for z in range(3):
+                houselist.append([posx,posy,posz])
+                house(posx,posy,posz,14,m3)
+                posz=ini_z+25*z
+                m3=m3+1
+                
+                
+def sing(k):
+    for each in k:
+        if each[0]<pos.x<(each[0]+10) and each[1]<pos.y<(each[1]+10) and each[2]<pos.z<(each[2]+10):
+            print("home")
+            song=str(random.randint(1,6))
+            ser.write(song.encode())
+            time.sleep(5)
+            stop='7'
+            ser.write(stop.encode())                                                    
+    
+lotshouse(650,0,-600)
+
+while(True):
+    pos = mc.player.getTilePos()
+    sing(houselist)
+    
