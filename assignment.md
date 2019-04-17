@@ -14,6 +14,7 @@
 
 
 # 2019/4/10 作业
+1.
 ## 设置pip安装源为国内  
 安装步骤:  
 在你的电脑的c:\user(或者用户)\你电脑的用户名\，这个目录下创建一个命名为“pip”的文件夹（如：C:\Users\gmn\pip），在该文件夹下创建一个命名为“pip.ini”的文件，在该文件中写入以下内容:  
@@ -23,4 +24,9 @@ index-url=https://mirrors.aliyun.com/pypi/simple/
 trusted-host=https://mirrors.aliyun.com/pypi/simple/    
 disable-pip-version-check = true    
 timeout = 6000  
+2.设计名叫House的类，类里面有changeMaterial  ChangeSong  ifPlayerIn 函数  其中 ifPlayerIn 函数会判断玩家是否进屋，如果进屋则唱自己的歌。  
+3.安装opencv  
+pip install opencv-python
+4.安装jupter notebook  
+pip install jupyter  
 
