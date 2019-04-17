@@ -26,7 +26,7 @@ disable-pip-version-check = true
 timeout = 6000  
 2.设计名叫House的类，类里面有changeMaterial  ChangeSong  ifPlayerIn 函数  其中 ifPlayerIn 函数会判断玩家是否进屋，如果进屋则唱自己的歌。  
 3.安装opencv  
-pip install opencv-python
+pip install opencv-python  
 4.安装jupter notebook  
 pip install jupyter  
 
