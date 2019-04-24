@@ -13,7 +13,7 @@
 3.python for data science intermediate 直接跳到object-oriented Python那一课,上传完成页面屏幕拷贝到你的名字目录中。
 
 
-# 2019/4/10 作业
+# 2019/4/17 作业
 1.
 ## 设置pip安装源为国内  
 安装步骤:  
@@ -31,3 +31,6 @@ pip install opencv-python
 pip install jupyter  
 5.设计并3D打印一个有你名字的立方体10mmx10mmx10mm
 
+# 2019/4/24 作业
+1. 每个小组打印一套 3D打印投石机的部件  https://github.com/ophwsjtu18/catapult/blob/master/Arduino_Catapult.rar      
+2. 每人完成一个用fusion360 slicer 制作的椴木板拼插模型，  要求A4大小，2.4mm 厚，不多于2块板  
