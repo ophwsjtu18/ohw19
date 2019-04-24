@@ -2,6 +2,14 @@
 
 pip install pyserial
 
+## 如果出现了jupyter notebook 或 numpy 报错问题
+
+pip uninstall tornado  
+pip install tornado==5.1.1   
+pip uninstall numpy  
+pip install numpy==1.16.1  
+
+
 <<<<<<< HEAD
 <<<<<<< HEAD
 hello, I'm CNF
