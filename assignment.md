@@ -33,5 +33,5 @@ pip install jupyter
 
 # 2019/4/24 作业
 1. 每个小组打印一套 3D打印投石机的部件  https://github.com/ophwsjtu18/catapult/blob/master/Arduino_Catapult.rar      
-2. 每人完成一个用fusion360 slicer 制作的椴木板拼插模型，  要求A4大小，2.4mm 厚，不多于2块板  
+2. 每人完成一个用fusion360 slicer 制作的椴木板拼插模型， 所用板材要求A4大小，2.4mm 厚，不多于2块板  
 3. 每组的3D打印立方体4\~5个，激光切割模型4\~5个放在一起拍照上传到小组目录
