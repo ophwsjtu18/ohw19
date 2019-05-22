@@ -1,0 +1,63 @@
+import cv2
+import numpy as np
+
+img=cv2.imread("handnumbers3.jpg")
+imshow=img.copy()
+#cv2.imshow("mw",img)
+#cv2.waitKey(0)
+W=1000
+L=1300
+NW=500
+NL=950
+X0=200
+Y0=250
+for i in range(2):
+    for j in range(4):
+        x1=X0+L*i
+        y1=Y0+W*j
+        x2=x1+NL
+        y2=y1+NW
+        imdig=img[x1:x2,y1:y2]
+        cv2.imshow("imdig",imdig)
+        cv2.waitKey()
+        cv2.rectangle(imshow,(y1,x1),(y2,x2),(0,255,0),3)
+        filename="hn"+str(i)+str(j)+".jpg"
+        cv2.imwrite(filename,imdig)
+cv2.imshow("imdigall",imshow)
+cv2.waitKey()
+cv2.destroyAllWindows()
+
+for i in range(2):
+    for j in range(4):
+        filename="hn"+str(i)+str(j)+".jpg"
+        img = cv2.imread(filename)
+        GrayImage=cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)  
+        ret,thresh1=cv2.threshold(GrayImage,100,255,cv2.THRESH_BINARY)  
+        resized_image = cv2.resize(thresh1, (28, 28)) 
+        invimg = ~resized_image
+        outputfile="hn28inv"+str(i)+str(j)+".jpg"
+        print(outputfile)
+        cv2.imwrite(outputfile,invimg)
+
+X_pred = numpy.zeros(shape=(8,28,28))
+index=0
+
+for i in range(2):
+    for j in range(4):
+        filename="hn28inv"+str(i)+str(j)+".jpg"
+        img = cv2.imread(filename)
+        GrayImage=cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+        X_pred[index]=cv2.resize(GrayImage, (28, 28))
+        index+=1
+print(X_pred.shape)
+
+for i in range(8):
+    plt.subplot(2,4,i+1)
+    plt.imshow(X_pred[i], cmap='gray', interpolation='none')
+    
+X_pred = X_pred.reshape(8, 784)
+X_pred = X_pred.astype('float32')
+X_pred /= 255
+print("Testing matrix shape", X_pred.shape)
+predicted_classes = model.predict_classes(X_pred)
+print(predicted_classes)
