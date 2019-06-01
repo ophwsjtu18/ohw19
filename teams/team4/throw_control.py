@@ -32,7 +32,8 @@ def movement(lu,rd,length,width): #input:left_up and right_down
     #         return
     #     else: #down
     #         return 's'
-    print(center_dot)
+
+    # print(center_dot)
     if center_dot[0]>x/2+shift:
         return 'b'
     elif center_dot[0]<x/2-shift:
@@ -42,6 +43,7 @@ def movement(lu,rd,length,width): #input:left_up and right_down
 
 def crawler(url):
     content=requests.get(url)
+    print(content.text)
     return content.text
 
 def last_pos(pos,content):
@@ -64,7 +66,7 @@ def change(content):
         l_pos = last_pos(f_pos, content)
         num = eval(content[f_pos:l_pos])
         list.append(num)
-        print(num)
+        # print(num)
     lu=[list[0],list[2]]
     rd=[list[1],list[3]]
     length=list[5]
@@ -80,7 +82,9 @@ def run():
         action = movement(dot_list[0],dot_list[1],dot_list[2],dot_list[3])
         print(action)
         ser.write(action.encode()) #output to arduino
-        time.sleep(2)
+        if(action=='c'):
+            time.sleep(2)
+        time.sleep(5)
 
 
 print ('Program begin!')
@@ -95,7 +99,7 @@ for p in ports:
         print ("No Arduino Device was found connected to the computer")
 
 # ser=serial.Serial(port='COM4')
-ser=serial.Serial(port='/dev/tty.usbmodem75')
+ser=serial.Serial(port='/dev/tty.usbmodem14531')
 # ser = serial.Serial(port = '/dev/cu.wchusbserial14430')
 # wait 2 seconds for arduino board restart
 time.sleep(2)
