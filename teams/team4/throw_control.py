@@ -1,8 +1,19 @@
 import serial
 import serial.tools.list_ports
+import mcpi.minecraft as minecraft
+import mcpi.block as block
 import time
 import requests
 import re
+
+mc = minecraft.Minecraft.create()
+
+
+def fire(pos):
+    for i in [-1,0,1]:
+        for j in [-1,0,1]:
+            mc.setBlock(pos.x+i,pos.y,pos.z+j,block.FIRE.id)
+            # print(pos.x+i,pos.y+j,pos.z)
 
 
 def movement(lu,rd,length,width): #input:left_up and right_down
@@ -11,29 +22,6 @@ def movement(lu,rd,length,width): #input:left_up and right_down
     y=width
     shift = 50
     center_dot = [(lu[0]+rd[0])/2,(lu[1]+rd[1])/2]
-    # if center_dot[0]>x/2+shift:
-    #     if center_dot[1]>y/2+shift: #right_up
-    #         return 'p'
-    #     elif y/2-shift<center_dot[1]<y/2+shift: #right
-    #         return 'd'
-    #     else: #right_down
-    #         return 'l'
-    # elif center_dot[0]<x/2-shift:
-    #     if center_dot[1]>y/2+shift: #left_up
-    #         return 'o'
-    #     elif y/2-shift<center_dot[1]<y/2+shift: #left
-    #         return 'a'
-    #     else: #left_down
-    #         return 'k'
-    # else:
-    #     if center_dot[1]>y/2+shift: #up
-    #         return 'w'
-    #     elif y/2-shift<center_dot[1]<y/2+shift: #stop
-    #         return
-    #     else: #down
-    #         return 's'
-
-    # print(center_dot)
     if center_dot[0]>x/2+shift:
         return 'b'
     elif center_dot[0]<x/2-shift:
@@ -77,6 +65,7 @@ def run():
     action = "empty"
     url = "http://192.168.43.84/test.html"
     while True:
+        pos = mc.player.getTilePos()
         content = crawler(url)
         dot_list = change(content)
         action = movement(dot_list[0],dot_list[1],dot_list[2],dot_list[3])
@@ -84,7 +73,8 @@ def run():
         ser.write(action.encode()) #output to arduino
         if(action=='c'):
             time.sleep(2)
-        time.sleep(5)
+            fire(pos)
+        time.sleep(1)
 
 
 print ('Program begin!')
@@ -99,8 +89,8 @@ for p in ports:
         print ("No Arduino Device was found connected to the computer")
 
 # ser=serial.Serial(port='COM4')
-ser=serial.Serial(port='/dev/tty.usbmodem14531')
-# ser = serial.Serial(port = '/dev/cu.wchusbserial14430')
+ser=serial.Serial(port='/dev/tty.usbmodem14441')
 # wait 2 seconds for arduino board restart
 time.sleep(2)
+# fire(pos)
 run()
