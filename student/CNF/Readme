@@ -2,10 +2,11 @@ The house task has been checked at 18:15, April 17th.
 
 图像识别文件夹是后来整理的，方便老师检查
 
-demo1图片是数字的原图
+1.
+demo1.png是手写数字的原图
 pic_predicted.ipynb是实现识别数字的代码
 屏幕截图（79）是识别数字的结果
 
-其他屏幕截图以及week8.png是线上学习python的进度记录图
+2.其他屏幕截图以及week8.png是线上学习python的进度记录图
 
-house.py和房子模样.png延时音乐播放.png是在minecraft里用python实现建造房屋和串口输出的结果及代码
+3.house.py和房子模样.png延时音乐播放.png是在minecraft里用python实现建造房屋和串口输出的结果及代码
