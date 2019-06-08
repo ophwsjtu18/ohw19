@@ -1,0 +1,6 @@
+#!/bin/bash
+
+cd /home/pi/workspace/ncappzoo/apps/street_cam
+python3 /home/pi/workspace/ncappzoo/apps/street_cam/vstreet_cam.py &
+sleep 60
+/usr/bin/chromium-browser 

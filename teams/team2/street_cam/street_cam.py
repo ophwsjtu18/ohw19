@@ -11,7 +11,6 @@ import cv2
 import time
 import serial
 import serial.tools.list_ports
-import _thread
 
 # the networks compiled for NCS via ncsdk tools
 tiny_yolo_graph_file = './yolo_tiny.graph'
@@ -543,6 +542,7 @@ def main():
             ser1 = serial.Serial(port=p[0])
         elif "Arduino" in p[1]:
             ser2 = serial.Serial(port=p[0])
+    time.sleep(2)
     video_device = cv2.VideoCapture(0)
 
     actual_frame_width = video_device.get(cv2.CAP_PROP_FRAME_WIDTH)
@@ -560,11 +560,8 @@ def main():
     need_advance = 0
     need_back = 0
     locked_on = 0
-    is_run = False
-
-    def run():
-        print("in run")
-        ser1.write("200 -200".encode())
+    should_run = False
+    is_running = False
 
     while True:
         # Read image from video device,
@@ -620,31 +617,41 @@ def main():
             if width <= 200:
                 need_advance += 1
                 print(need_advance)
-                if need_advance >= 5 and not is_run:
-                    _thread.start_new_thread(run, ())
-                    is_run = True
+                if need_advance >= 2 and not should_run:
+                    should_run = True
+                    print("start")
+                    time.sleep(1)
+                    ser1.write("100 -100 ".encode())
+                    time.sleep(1)
             else:
                 need_advance = 0
                 print('stop')
+                if should_run:
+                    ser1.write("0 0".encode())
+                    should_run = False
+            if width >= 400:
+                need_back += 1
+                if need_back >= 5:
+                    ser1.write("-100 100".encode())
+            else:
+                need_back = 0
                 ser1.write("0 0".encode())
-                is_run = False
-            # if width >= 400:
-            #     need_back += 1
-            #     if need_back >= 5:
-            #         ser1.write("-100 100".encode())
-            # else:
-            #     need_back = 0
-            #     ser1.write("0 0".encode())
-            # if center_x < width / 2 - 100:
-            #     ser2.write("2".encode())  # 右转
-            # elif center_x > width / 2 + 100:
-            #     ser2.write("3".encode())
-            # else:
-            #     locked_on += 1
-            #     ser1.write("alarm".encode())
-            #     if locked_on >= 40:
-            #         locked_on = 0
-            #         # ser2.write("1".encode())
+            if center_x < width / 2 - 200:
+                print("zuo")
+                time.sleep(1)
+                ser2.write("2".encode())  # 左转
+            elif center_x > width / 2 + 200:
+                print("you")
+                time.sleep(1)
+                ser2.write("3".encode())
+            else:
+                locked_on += 1
+                print("alarm")
+                ser1.write("alarm".encode())
+                if locked_on >= 10:
+                    locked_on = 0
+                    print("shoot")
+                    ser2.write("1".encode())
         # resize back to original size so image doesn't look squashed
         # It might be better to resize the boxes to match video dimensions
         # and overlay them directly on the video image returned from video device.
@@ -652,7 +659,6 @@ def main():
                                    cv2.INTER_LINEAR)
         # update the GUI window with new image
         cv2.imshow(cv_window_name, display_image)
-
         raw_key = cv2.waitKey(1)
         if raw_key != -1:
             if handle_keys(raw_key) == False:
@@ -661,9 +667,6 @@ def main():
                 break
 
         frame_count = frame_count + 1
-
-    frames_per_second = frame_count / (end_time - start_time)
-    print('Frames per Second: ' + str(frames_per_second))
 
     # close video device
     video_device.release()
