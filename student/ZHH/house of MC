@@ -1,0 +1,26 @@
+import mcpi.minecraft as minecraft
+import mcpi.block as block
+mc = minecraft.Minecraft.create()
+def house(m,n,r,s,t):
+pos = mc.player.getTilePos()
+x=pos.x
+y=pos.y
+z=pos.z
+for i in range (m,n):
+    for j in range (0,n):
+        mc.setBlocks(x+i,y-m,z+j,s)
+        mc.setBlocks(x-m,y+i,z+j,s)
+        mc.setBlocks(x+m,y+i,z+j,s)
+        if j<=m*3/2:
+            if i !=1 and i !=0 and i !=-1:
+                 mc.setBlocks(x+i,y+4,z+j,r)
+        elif j==n:
+            if i !=2 and i !=-2:
+                mc.setBlocks(x+i,y+n,z+j,t)
+        else:
+            mc.setBlocks(x+i,y+n,z+j,t)
+
+
+house(5,4,1,41,2)
+            
+
